@@ -54,9 +54,9 @@ public class TimeLineAdapter2 extends RecyclerView.Adapter<TimeLineAdapter2.View
         holder.time.setTextColor(colors[position % getItemCount()]);
 
         if (position % 2 == 0) {
-            holder.itemView.setBackground(ContextCompat.getDrawable(mContext, R.drawable.pop_right));
-        } else {
             holder.itemView.setBackground(ContextCompat.getDrawable(mContext, R.drawable.pop_left));
+        } else {
+            holder.itemView.setBackground(ContextCompat.getDrawable(mContext, R.drawable.pop_right));
         }
     }
 
