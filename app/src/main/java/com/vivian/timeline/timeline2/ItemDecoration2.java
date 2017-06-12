@@ -2,6 +2,7 @@ package com.vivian.timeline.timeline2;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
@@ -27,11 +28,19 @@ public class ItemDecoration2 extends RecyclerView.ItemDecoration {
     Drawable drawable;
     Drawable verticalLine;
 
+    Paint textPaint;
+    Rect textRect;
+    String end="END";
+
     public ItemDecoration2(Context context, int distance) {
         mContext = context;
         this.distance = distance;
         verticalLine = ContextCompat.getDrawable(mContext, R.drawable.white_line);
         drawable = ContextCompat.getDrawable(mContext, R.drawable.dot);
+        textPaint = new Paint();
+        textPaint.setColor(0xFFFFFFFF);
+        textPaint.setTextSize(18);
+        textRect = new Rect();
     }
 
     @Override
@@ -40,9 +49,9 @@ public class ItemDecoration2 extends RecyclerView.ItemDecoration {
         outRect.right = 20;
         outRect.bottom = distance;
         if (parent.getChildAdapterPosition(view) == 0) {
-            outRect.top =0;
+            outRect.top = 0;
         } else if (parent.getChildAdapterPosition(view) == 1) {
-            outRect.top = 2*distance;
+            outRect.top = 2 * distance;
         }
     }
 
@@ -62,7 +71,7 @@ public class ItemDecoration2 extends RecyclerView.ItemDecoration {
             View child = parent.getChildAt(i);
 
             //中间的线直接画到底的话可以用bottom，根据child选择中间画线就换成child.getBottom()
-            verticalLine.setBounds(parentWidth / 2 - 1, top, parentWidth / 2 + 1, bottom);
+            verticalLine.setBounds(parentWidth / 2 - 1, top, parentWidth / 2 + 1, child.getBottom());
             verticalLine.draw(c);
         }
     }
@@ -74,14 +83,24 @@ public class ItemDecoration2 extends RecyclerView.ItemDecoration {
         for (int i = 0; i < childCount; i++) {//-1最后一个不画
             final View child = parent.getChildAt(i);
 
-            final int top = child.getTop()+10;
-            final int bottom = top + drawable.getIntrinsicHeight();
+            int top = child.getTop() + 10;
+            int bottom = top + drawable.getIntrinsicHeight();
 
             int drawableLeft = parentWidth / 2 - drawable.getIntrinsicWidth() / 2;
             int drawableRight = parentWidth / 2 + drawable.getIntrinsicWidth() / 2;
 
             drawable.setBounds(drawableLeft, top, drawableRight, bottom);
             drawable.draw(c);
+
+            if (i == childCount - 1) {
+                top = child.getBottom();
+                bottom = child.getBottom() + drawable.getIntrinsicHeight();
+                drawable.setBounds(drawableLeft, top, drawableRight, bottom);
+                drawable.draw(c);
+
+                textPaint.getTextBounds(end, 0, end.length(), textRect);
+                c.drawText(end, parentWidth / 2 - textRect.width()/2, bottom + 30, textPaint);
+            }
         }
     }
 }
