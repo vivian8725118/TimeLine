@@ -5,12 +5,11 @@
     android:background="#FFFFFF"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.vivian.timeline.MainActivity">
+    tools:context="com.vivian.timeline.timeline1.MainActivity">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Hello World!"/>
+        android:layout_height="match_parent"/>
 
 </LinearLayout>

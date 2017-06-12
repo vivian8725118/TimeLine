@@ -1,4 +1,4 @@
-package com.vivian.timeline;
+package com.vivian.timeline.timeline1;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -7,6 +7,8 @@ import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+
+import com.vivian.timeline.R;
 
 /**
  * *          _       _
