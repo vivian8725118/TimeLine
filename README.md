@@ -16,6 +16,6 @@ MainActivity是图一的效果，TimeLineActivity是图二的效果
 
 ## 效果图
 <div>
-<image hspace="20" src="https://github.com/vivian8725118/TimeLine/blob/master/art/FEDD719A6C84658E728E03762C5334AE.jpg" width=30% height=30%/>
-<image src="https://github.com/vivian8725118/TimeLine/blob/master/art/1B51D7A1-7722-4ED0-B17C-1CDD769723FA.jpg?raw=true" width=30% height=30%/>
+<image hspace="20" src="https://github.com/vivian8725118/TimeLine/blob/master/art/FEDD719A6C84658E728E03762C5334AE.jpg" width=40% height=40%/>
+<image src="https://github.com/vivian8725118/TimeLine/blob/master/art/A6A1B601503A23E054ABC9B205B2131F.png?raw=true" width=40% height=40%/>
 </div>
