@@ -1,20 +1,16 @@
 # TimeLine
-左右交错的时间轴
+Staggered TimeLine
 
 ## Usage
-使用StaggerGridLayoutManager设置LayoutManager，并添加自定义的ItemDecoration。
-其中，ItemDecoration的第二个参数用来设置item之间的间隔。
+Use StaggerGridLayoutManager to setLayoutManager，and add the ItemDecoration file to divide items.
+The second params in ItemDecoration(context,distance) is used to set the space of items.
 
 ```
 mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
 mRecyclerView.addItemDecoration(new ItemDecoration(this,100));
 ```
-MainActivity是图一的效果，TimeLineActivity是图二的效果
-## 原理
-用StaggerGridLayoutManager实现了类似瀑布流的效果，然后在ItemDecoration中画出分割线的效果。
-在ItemDecoration中分别画了横线、竖线、还有时间的图标这三个来实现时间轴的效果。
 
-## 效果图
+## Example
 <div>
 <image hspace="20" src="https://github.com/vivian8725118/TimeLine/blob/master/art/FEDD719A6C84658E728E03762C5334AE.jpg" width=40% height=40%/>
 <image src="https://github.com/vivian8725118/TimeLine/blob/master/art/A6A1B601503A23E054ABC9B205B2131F.png?raw=true" width=40% height=40%/>
