@@ -51,7 +51,7 @@ public class TimeLineAdapter2 extends RecyclerView.Adapter<TimeLineAdapter2.View
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.time.setText(Util.LongtoStringFormat(1000 * mList.get(position).getTime()));
         holder.textView.setText(mList.get(position).getEvent());
-        holder.time.setTextColor(colors[position % getItemCount()]);
+        holder.time.setTextColor(colors[position % colors.length]);
 
         if (position % 2 == 0) {
             holder.itemView.setBackground(ContextCompat.getDrawable(mContext, R.drawable.pop_left));

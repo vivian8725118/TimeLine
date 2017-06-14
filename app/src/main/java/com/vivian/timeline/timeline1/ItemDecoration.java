@@ -66,14 +66,8 @@ public class ItemDecoration extends RecyclerView.ItemDecoration {
         final int bottom = parent.getHeight() - parent.getPaddingBottom();
         final int parentWidth = parent.getMeasuredWidth();
 
-        final int childCount = parent.getChildCount();
-        for (int i = 0; i < childCount; i++) {
-            View child = parent.getChildAt(i);
-
-            //中间的线直接画到底的话可以用bottom，根据child选择中间画线就换成child.getBottom()
-            verticalLine.setBounds(parentWidth / 2 - 1, top, parentWidth / 2 + 1,bottom);
-            verticalLine.draw(c);
-        }
+        verticalLine.setBounds(parentWidth / 2 - 1, top, parentWidth / 2 + 1,bottom);
+        verticalLine.draw(c);
     }
 
     public void drawVertical(Canvas c, RecyclerView parent) {
