@@ -25,7 +25,7 @@ Currently there are 2 styles available, as seen in the Screenshots. You can find
 
 # License
 
-    Copyright 2016 Vivian
+    Copyright 2017 Vivian
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
