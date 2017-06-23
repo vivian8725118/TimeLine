@@ -1,7 +1,6 @@
 package com.vivian.timeline.timeline2;
 
 import android.content.Context;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -52,12 +51,6 @@ public class TimeLineAdapter2 extends RecyclerView.Adapter<TimeLineAdapter2.View
         holder.time.setText(Util.LongtoStringFormat(1000 * mList.get(position).getTime()));
         holder.textView.setText(mList.get(position).getEvent());
         holder.time.setTextColor(colors[position % colors.length]);
-
-        if (position % 2 == 0) {
-            holder.itemView.setBackground(ContextCompat.getDrawable(mContext, R.drawable.pop_left));
-        } else {
-            holder.itemView.setBackground(ContextCompat.getDrawable(mContext, R.drawable.pop_right));
-        }
     }
 
     @Override

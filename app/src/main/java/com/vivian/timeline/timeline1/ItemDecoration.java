@@ -84,7 +84,7 @@ public class ItemDecoration extends RecyclerView.ItemDecoration {
             int horizontalLineRight = parentWidth / 2;
             int horizontalLineTop = child.getTop() + (child.getBottom() - child.getTop()) / 2;
 
-            if (parent.getChildAdapterPosition(child) % 2 == 1) {
+            if (child.getLeft()<parentWidth/2) {
                 horizontalLineLeft = parentWidth / 2;
                 horizontalLineRight = child.getLeft();
             }

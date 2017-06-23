@@ -7,7 +7,9 @@ import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.vivian.timeline.R;
 
@@ -30,7 +32,8 @@ public class ItemDecoration2 extends RecyclerView.ItemDecoration {
 
     Paint textPaint;
     Rect textRect;
-    String end="END";
+    String end = "END";
+    boolean isLeft;
 
     public ItemDecoration2(Context context, int distance) {
         mContext = context;
@@ -67,7 +70,9 @@ public class ItemDecoration2 extends RecyclerView.ItemDecoration {
 
         final int childCount = parent.getChildCount();
         View lastChild = parent.getChildAt(childCount - 1);
-        verticalLine.setBounds(parentWidth / 2 - 1, top, parentWidth / 2 + 1, lastChild.getBottom());
+        View child = parent.getChildAt(childCount - 2);
+        int bottom = child.getBottom() > lastChild.getBottom() ? child.getBottom() : lastChild.getBottom();
+        verticalLine.setBounds(parentWidth / 2 - 1, top, parentWidth / 2 + 1, bottom);
         verticalLine.draw(c);
     }
 
@@ -87,14 +92,27 @@ public class ItemDecoration2 extends RecyclerView.ItemDecoration {
             drawable.setBounds(drawableLeft, top, drawableRight, bottom);
             drawable.draw(c);
 
+            ViewGroup.LayoutParams layoutParams = child.getLayoutParams();
+            if (layoutParams instanceof StaggeredGridLayoutManager.LayoutParams) {
+                StaggeredGridLayoutManager.LayoutParams staggerLayoutParams = (StaggeredGridLayoutManager.LayoutParams) layoutParams;
+                isLeft = staggerLayoutParams.getSpanIndex() == 0;
+                child.setBackground(ContextCompat.getDrawable(mContext, isLeft?R.drawable.pop_left:R.drawable.pop_right));
+            }
+
             if (i == childCount - 1) {
-                top = child.getBottom();
-                bottom = child.getBottom() + drawable.getIntrinsicHeight();
+                View lastChild = parent.getChildAt(i - 1);
+                if (lastChild.getBottom() < child.getBottom()) {
+                    top = child.getBottom();
+                    bottom = child.getBottom() + drawable.getIntrinsicHeight();
+                } else {
+                    top = lastChild.getBottom();
+                    bottom = lastChild.getBottom() + drawable.getIntrinsicHeight();
+                }
                 drawable.setBounds(drawableLeft, top, drawableRight, bottom);
                 drawable.draw(c);
 
                 textPaint.getTextBounds(end, 0, end.length(), textRect);
-                c.drawText(end, parentWidth / 2 - textRect.width()/2, bottom + 30, textPaint);
+                c.drawText(end, parentWidth / 2 - textRect.width() / 2, bottom + 30, textPaint);
             }
         }
     }
