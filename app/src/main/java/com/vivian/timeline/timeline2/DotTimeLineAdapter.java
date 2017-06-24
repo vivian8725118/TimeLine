@@ -22,7 +22,7 @@ import java.util.List;
  * Created by vivian on 2017/6/9.
  */
 
-public class TimeLineAdapter2 extends RecyclerView.Adapter<TimeLineAdapter2.ViewHolder> {
+public class DotTimeLineAdapter extends RecyclerView.Adapter<DotTimeLineAdapter.ViewHolder> {
     Context mContext;
     List<Event> mList;
     int[] colors = {0xffFFAD6C, 0xff62f434, 0xffdeda78, 0xff7EDCFF, 0xff58fdea, 0xfffdc75f};//颜色组
@@ -31,11 +31,11 @@ public class TimeLineAdapter2 extends RecyclerView.Adapter<TimeLineAdapter2.View
         mList = list;
     }
 
-    public TimeLineAdapter2(Context context) {
+    public DotTimeLineAdapter(Context context) {
         mContext = context;
     }
 
-    public TimeLineAdapter2(Context context, List<Event> list) {
+    public DotTimeLineAdapter(Context context, List<Event> list) {
         mContext = context;
         mList = list;
     }

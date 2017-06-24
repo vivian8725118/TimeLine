@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/round_ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".timeline2.TimeLineActivity">
+        <activity android:name=".timeline2.DotTimeLineActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
