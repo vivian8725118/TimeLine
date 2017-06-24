@@ -15,7 +15,35 @@ mRecyclerView.addItemDecoration(new ItemDecoration(this,100));
 ```
 The second ctor-parameter will define the `distance`. In that case 100px.
 
-Currently there are 2 styles available, as seen in the Screenshots. You can find the implementation for the second style here. [ItemDecoration2.java](https://github.com/vivian8725118/TimeLine/blob/master/app/src/main/java/com/vivian/timeline/timeline2/ItemDecoration2.java)  
+Currently there are 2 styles available, as seen in the Screenshots. You can find the implementation for the second style here. [DotItemDecoration.java](https://github.com/vivian8725118/TimeLine/blob/master/app/src/main/java/com/vivian/timeline/itemdecoration/DotItemDecoration.java)  
+```
+  DotItemDecoration mItemDecoration = new DotItemDecoration
+                .Builder(this)
+                .setItemStyle(DotItemDecoration.STYLE_DRAW)//choose to draw or use resource
+                .setTopDistance(20)//dp
+                .setItemInterVal(10)//dp
+                .setItemPaddingLeft(10)//default value equals to item interval value
+                .setItemPaddingRight(10)//default value equals to item interval value
+                .setDotColor(Color.WHITE)
+                .setDotRadius(2)//dp
+                .setLineColor(Color.RED)//the color of vertical line
+                .setLineWidth(1)//dp
+                .setEndText("END")//set end text
+                .setTextColor(Color.WHITE)
+                .setTextSize(10)//sp
+                .setDotPaddingText(2)//dp.The distance between the last dot and the end text
+                .setBottomDistance(40)//you can add a distance to make bottom line longer
+                .create();
+```
+if you want to do something according to the column of span,implements `SpanIndexListener` of this project [SpanIndexListener](https://github.com/vivian8725118/TimeLine/blob/master/app/src/main/java/com/vivian/timeline/itemdecoration/SpanIndexListener.java).
+```
+   mItemDecoration.setSpanIndexListener(new SpanIndexListener() {
+            @Override
+            public void onSpanIndexChange(View view, int spanIndex) {
+                view.setBackgroundResource(spanIndex == 0 ? R.drawable.pop_left : R.drawable.pop_right);
+            }
+   });
+```
 
 ## Example
 <div>
