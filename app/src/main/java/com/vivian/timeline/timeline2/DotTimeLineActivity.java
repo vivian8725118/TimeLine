@@ -8,8 +8,8 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 
 import com.vivian.timeline.R;
-import com.vivian.timeline.itemdecoration.DotItemDecoration;
-import com.vivian.timeline.itemdecoration.SpanIndexListener;
+import com.vivian.timelineitemdecoration.itemdecoration.DotItemDecoration;
+import com.vivian.timelineitemdecoration.itemdecoration.SpanIndexListener;
 
 import java.util.ArrayList;
 import java.util.List;

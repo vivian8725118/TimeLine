@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.vivian.timeline.R;
-import com.vivian.timeline.util.Util;
+import com.vivian.timelineitemdecoration.util.Util;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.vivian.timeline.itemdecoration;
+package com.vivian.timelineitemdecoration.itemdecoration;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -13,10 +13,13 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.vivian.timeline.util.Util;
+import com.vivian.timelineitemdecoration.R;
+import com.vivian.timelineitemdecoration.util.Util;
+
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 
 import static android.R.attr.drawableRight;
-import static com.vivian.timeline.R.drawable.dot;
 
 /**
  * *          _       _
@@ -33,6 +36,7 @@ public class DotItemDecoration extends RecyclerView.ItemDecoration {
     public static final int STYLE_RESOURCE = 1;
 
     //you can choose to draw or use resource as divider
+    @Retention(RetentionPolicy.SOURCE)
     @IntDef({STYLE_DRAW, STYLE_RESOURCE})
     public @interface ItemStyle {
 
@@ -52,7 +56,7 @@ public class DotItemDecoration extends RecyclerView.ItemDecoration {
     private int mLineColor = Color.WHITE;
 
     Drawable mDrawable;
-    private int mDotRes = dot;
+    private int mDotRes = R.drawable.dot;
 
     Paint mDotPaint;
     private int mDotPaddingTop = 20;
@@ -255,8 +259,8 @@ public class DotItemDecoration extends RecyclerView.ItemDecoration {
             return this;
         }
 
-        public Builder setDotPaddingText(float dotPaddingText){
-            itemDecoration.mDotPaddingText=Util.Dp2Px(mContext,dotPaddingText);
+        public Builder setDotPaddingText(float dotPaddingText) {
+            itemDecoration.mDotPaddingText = Util.Dp2Px(mContext, dotPaddingText);
             return this;
         }
 

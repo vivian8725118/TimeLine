@@ -1,0 +1,97 @@
+apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'com.jfrog.bintray'
+
+group = rootProject.ext.pomGroup
+version = rootProject.ext.versionName
+
+def HashMap getConfig(){
+    HashMap<String, String> configMap = new HashMap<String, String>()
+    if(configMap.size() == 0){
+
+        File localPropFile = project.rootProject.file("local.properties")
+        if(localPropFile.exists()){
+            Properties localProperties = new Properties()
+            localProperties.load(localPropFile.newDataInputStream())
+
+            configMap.put("id", localProperties.getProperty("bintray.id"))
+            configMap.put("name", localProperties.getProperty("bintray.name"))
+            configMap.put("email", localProperties.getProperty("bintray.email"))
+            configMap.put("user", localProperties.getProperty("bintray.user"))
+            configMap.put("apiKey", localProperties.getProperty("bintray.apiKey"))
+        }
+    }
+
+    return configMap
+}
+
+install {
+    repositories.mavenInstaller {
+        // This generates POM.xml with proper parameters
+        pom {
+            project {
+                packaging rootProject.ext.pomPackaging
+                name rootProject.ext.pomName
+                url rootProject.ext.pomSiteUrl
+
+                licenses {
+                    license {
+                        name rootProject.ext.pomLicenseName
+                        url rootProject.ext.pomLicenseUrl
+                    }
+                }
+                developers {
+                    developer {
+                        def config = getConfig()
+                        id config.get("id")
+                        name config.get("name")
+                        email config.get("email")
+                    }
+                }
+
+                scm {
+                    connection rootProject.ext.pomGitUrl
+                    developerConnection rootProject.ext.pomGitUrl
+                    url rootProject.ext.pomSiteUrl
+                }
+
+            }
+        }
+    }
+}
+
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+
+task javadoc(type: Javadoc){
+    source = android.sourceSets.main.java.srcDirs
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+artifacts {
+    archives javadocJar
+    archives sourcesJar
+}
+
+bintray {
+    def config = getConfig()
+    println "user:" + config.get("user")
+    println "apiKey:" + config.get("apiKey")
+    user = config.get("user")
+    key = config.get("apiKey")
+    configurations = ['archives']
+    pkg {
+        repo = "maven"
+        name = rootProject.ext.pomName
+        websiteUrl = rootProject.ext.pomSiteUrl
+        vcsUrl = rootProject.ext.pomGitUrl
+        licenses = [rootProject.ext.pomLicenseShort]
+        publish = true
+    }
+}

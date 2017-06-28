@@ -1,4 +1,4 @@
-package com.vivian.timeline.itemdecoration;
+package com.vivian.timelineitemdecoration.itemdecoration;
 
 import android.view.View;
 
