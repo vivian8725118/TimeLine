@@ -1,5 +1,10 @@
 # TimeLine
-This project aims to provide a easy to use *Staggered TimeLine* implementation.
+This project aims to provide a easy way to use *Staggered TimeLine* implementation.
+
+## Provide the gradle dependency
+```
+compile 'com.vivian.widgets:TimeLineItemDecoration:1.0'
+```
 
 ## Usage
 If you want to use this *TimeLine*  in your project, you have to do the following.
