@@ -29,5 +29,5 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:recyclerview-v7:24.2.0'
 //    compile project(':TimeLineItemDecoration')
-    compile 'com.vivian.widgets:TimeLineItemDecoration:1.0'
+    compile 'com.vivian.widgets:TimeLineItemDecoration:1.1'
 }

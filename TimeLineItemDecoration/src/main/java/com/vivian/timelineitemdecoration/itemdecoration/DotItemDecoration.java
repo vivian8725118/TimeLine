@@ -42,8 +42,20 @@ public class DotItemDecoration extends RecyclerView.ItemDecoration {
 
     }
 
+    public static final int HORIZONTAL = 0;
+    public static final int VERTICAL = 1;
+
+    //you can choose the orientation of item decoration
+    @Retention(RetentionPolicy.SOURCE)
+    @IntDef({VERTICAL, HORIZONTAL})
+    public @interface Orientation {
+
+    }
+
     @ItemStyle
     private int mStyle = STYLE_DRAW;
+    @Orientation
+    private int mOrientation = VERTICAL;
     private Context mContext;
 
     private int mTopDistance = 40;
@@ -89,13 +101,31 @@ public class DotItemDecoration extends RecyclerView.ItemDecoration {
 
     @Override
     public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
-        outRect.left = mItemPaddingLeft;
-        outRect.right = mItemPaddingRight;
-        outRect.bottom = mItemInterval;
-        if (parent.getChildAdapterPosition(view) == 0) {
-            outRect.top = mTopDistance;
-        } else if (parent.getChildAdapterPosition(view) == 1) {
-            outRect.top = 2 * mTopDistance;
+        int itemCount = parent.getAdapter().getItemCount();
+        int currentPosition = parent.getChildAdapterPosition(view);
+
+        if (mOrientation == VERTICAL) {
+            outRect.left = mItemPaddingLeft;
+            outRect.right = mItemPaddingRight;
+            outRect.bottom = mItemInterval;
+            if (parent.getChildAdapterPosition(view) == 0) {
+                outRect.top = mTopDistance;
+            } else if (parent.getChildAdapterPosition(view) == 1) {
+                outRect.top = 2 * mTopDistance;
+            } else if (parent.getAdapter() != null && (currentPosition == itemCount - 1 || currentPosition == itemCount - 2)) {
+                outRect.bottom = outRect.height() + mItemInterval + mBottomDistance + mDotPaddingText + mTextSize + mTextRect.height() + mDotRadius;
+            }
+        } else {
+            outRect.top = mItemPaddingLeft;
+            outRect.bottom = mItemPaddingRight;
+            outRect.right = mItemInterval;
+            if (parent.getChildAdapterPosition(view) == 0) {
+                outRect.left = mTopDistance;
+            } else if (parent.getChildAdapterPosition(view) == 1) {
+                outRect.left = 2 * mTopDistance;
+            } else if (parent.getAdapter() != null && (currentPosition == itemCount - 1 || currentPosition == itemCount - 2)) {
+                outRect.right = outRect.width() + mItemInterval + mBottomDistance + mDotPaddingText + mTextSize + mTextRect.width() + mDotRadius;
+            }
         }
 
         ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
@@ -122,11 +152,16 @@ public class DotItemDecoration extends RecyclerView.ItemDecoration {
 
         mDotPaint.setColor(mDotColor);
 
-        drawHorizontal(c, parent);
-        drawVertical(c, parent);
+        if (mOrientation == VERTICAL) {
+            drawCenterVerticalLine(c, parent);
+            drawVerticalItem(c, parent);
+        } else {
+            drawCenterHorizontalLine(c, parent);
+            drawHorizontalItem(c, parent);
+        }
     }
 
-    public void drawHorizontal(Canvas c, RecyclerView parent) {
+    public void drawCenterVerticalLine(Canvas c, RecyclerView parent) {
         final int top = parent.getPaddingTop();
         final int parentWidth = parent.getMeasuredWidth();
         int bottom;
@@ -143,11 +178,10 @@ public class DotItemDecoration extends RecyclerView.ItemDecoration {
         c.drawLine(parentWidth / 2, top, parentWidth / 2, bottom, mLinePaint);
     }
 
-    public void drawVertical(Canvas c, RecyclerView parent) {
+    public void drawVerticalItem(Canvas c, RecyclerView parent) {
         final int parentWidth = parent.getMeasuredWidth();
-
         final int childCount = parent.getChildCount();
-        for (int i = 0; i < childCount; i++) {//-1最后一个不画
+        for (int i = 0; i < childCount; i++) {
             final View child = parent.getChildAt(i);
 
             int top = child.getTop() + mDotPaddingTop;
@@ -160,7 +194,6 @@ public class DotItemDecoration extends RecyclerView.ItemDecoration {
 
                 mDrawable.setBounds(drawableLeft, top, drawableRight, bottom);
                 mDrawable.draw(c);
-
             } else {
                 drawableLeft = parentWidth / 2;
 
@@ -190,6 +223,69 @@ public class DotItemDecoration extends RecyclerView.ItemDecoration {
         }
     }
 
+    public void drawCenterHorizontalLine(Canvas c, RecyclerView parent) {
+        final int left = parent.getPaddingLeft();
+        final int parentHeight = parent.getMeasuredHeight();
+        int right;
+
+        final int childCount = parent.getChildCount();
+        View lastChild = parent.getChildAt(childCount - 1);
+        if (childCount > 1) {
+            View child = parent.getChildAt(childCount - 2);
+            right = mBottomDistance + (child.getRight() > lastChild.getRight() ? child.getRight() : lastChild.getRight());
+        } else {
+            right = mBottomDistance + lastChild.getRight();
+        }
+
+        c.drawLine(left, parentHeight / 2, right, parentHeight / 2, mLinePaint);
+    }
+
+    public void drawHorizontalItem(Canvas c, RecyclerView parent) {
+        final int parentHeight = parent.getMeasuredHeight();
+        final int childCount = parent.getChildCount();
+
+        for (int i = 0; i < childCount; i++) {
+            final View child = parent.getChildAt(i);
+            int left = child.getLeft() + mDotPaddingTop;
+            int right;
+            int drawableLeft;
+
+            if (mStyle == STYLE_RESOURCE) {
+                right = left + mDrawable.getIntrinsicWidth();
+                drawableLeft = parentHeight / 2 - mDrawable.getIntrinsicWidth() / 2;
+                int drawableRight = parentHeight / 2 + mDrawable.getIntrinsicWidth() / 2;
+
+                mDrawable.setBounds(drawableLeft, left, drawableRight, right);
+                mDrawable.draw(c);
+            } else {
+                drawableLeft = parentHeight / 2;
+
+                c.drawCircle(left, drawableLeft, mDotRadius, mDotPaint);
+            }
+
+            if (i == childCount - 1) {
+                View lastChild = parent.getChildAt(i - 1);
+                if (lastChild.getRight() < child.getRight()) {
+                    left = child.getRight() + mBottomDistance;
+                    right = child.getRight() + (mStyle == STYLE_RESOURCE ? mDrawable.getIntrinsicWidth() : mDotRadius);
+                } else {
+                    left = lastChild.getRight() + mBottomDistance;
+                    right = lastChild.getRight() + (mStyle == STYLE_RESOURCE ? mDrawable.getIntrinsicWidth() : mDotRadius);
+                }
+                if (mStyle == STYLE_RESOURCE) {
+                    mDrawable.setBounds(left, drawableLeft, drawableRight, right);
+                    mDrawable.draw(c);
+                } else {
+                    c.drawCircle(left, drawableLeft, mDotRadius, mDotPaint);
+                }
+
+                mTextPaint.getTextBounds(mEnd, 0, mEnd.length(), mTextRect);
+                mTextPaint.setTextSize(mTextSize);
+                c.drawText(mEnd, right + mBottomDistance + mDotPaddingText + mTextSize, parentHeight / 2 + mTextRect.height() / 2, mTextPaint);
+            }
+        }
+    }
+
     public static class Builder {
         private Context mContext;
         private DotItemDecoration itemDecoration;
@@ -197,6 +293,11 @@ public class DotItemDecoration extends RecyclerView.ItemDecoration {
         public Builder(Context context) {
             this.mContext = context;
             itemDecoration = new DotItemDecoration(context);
+        }
+
+        public Builder setOrientation(@Orientation int orientation) {
+            itemDecoration.mOrientation = orientation;
+            return this;
         }
 
         public Builder setItemStyle(@ItemStyle int itemStyle) {

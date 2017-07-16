@@ -47,11 +47,12 @@ public class DotTimeLineActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         mItemDecoration = new DotItemDecoration
                 .Builder(this)
+                .setOrientation(DotItemDecoration.VERTICAL)//if you want a horizontal item decoration,remember to set horizontal orientation to your LayoutManager
                 .setItemStyle(DotItemDecoration.STYLE_DRAW)
                 .setTopDistance(20)//dp
                 .setItemInterVal(10)//dp
-                .setItemPaddingLeft(10)//default value equals to item interval value
-                .setItemPaddingRight(10)//default value equals to item interval value
+                .setItemPaddingLeft(20)//default value equals to item interval value
+                .setItemPaddingRight(20)//default value equals to item interval value
                 .setDotColor(Color.WHITE)
                 .setDotRadius(2)//dp
                 .setLineColor(Color.RED)
