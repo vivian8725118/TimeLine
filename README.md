@@ -3,7 +3,7 @@ This project aims to provide a easy way to use *Staggered TimeLine* implementati
 
 ## Provide the gradle dependency
 ```
-compile 'com.vivian.widgets:TimeLineItemDecoration:1.0'
+compile 'com.vivian.widgets:TimeLineItemDecoration:1.1'
 ```
 
 ## Usage
@@ -24,6 +24,7 @@ Currently there are 2 styles available, as seen in the Screenshots. You can find
 ```
   DotItemDecoration mItemDecoration = new DotItemDecoration
                 .Builder(this)
+                .setOrientation(DotItemDecoration.VERTICAL)//if you want a horizontal item decoration,remember to set horizontal orientation to your LayoutManager
                 .setItemStyle(DotItemDecoration.STYLE_DRAW)//choose to draw or use resource
                 .setTopDistance(20)//dp
                 .setItemInterVal(10)//dp
