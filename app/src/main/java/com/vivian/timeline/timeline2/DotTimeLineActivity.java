@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.util.Log;
 import android.view.View;
 
 import com.vivian.timeline.R;
@@ -44,7 +45,7 @@ public class DotTimeLineActivity extends AppCompatActivity {
         setContentView(R.layout.dot_timeline_layout);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+        mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL));
         mItemDecoration = new DotItemDecoration
                 .Builder(this)
                 .setOrientation(DotItemDecoration.VERTICAL)//if you want a horizontal item decoration,remember to set horizontal orientation to your LayoutManager
@@ -55,6 +56,8 @@ public class DotTimeLineActivity extends AppCompatActivity {
                 .setItemPaddingRight(20)//default value equals to item interval value
                 .setDotColor(Color.WHITE)
                 .setDotRadius(2)//dp
+                .setDotPaddingTop(0)
+                .setDotInItemOrientationCenter(false)
                 .setLineColor(Color.RED)
                 .setLineWidth(1)//dp
                 .setEndText("END")
@@ -66,6 +69,7 @@ public class DotTimeLineActivity extends AppCompatActivity {
         mItemDecoration.setSpanIndexListener(new SpanIndexListener() {
             @Override
             public void onSpanIndexChange(View view, int spanIndex) {
+                Log.i("Info","view:"+view+"  span:"+spanIndex);
                 view.setBackgroundResource(spanIndex == 0 ? R.drawable.pop_left : R.drawable.pop_right);
             }
         });
