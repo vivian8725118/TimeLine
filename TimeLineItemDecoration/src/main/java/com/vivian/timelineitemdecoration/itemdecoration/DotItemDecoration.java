@@ -8,7 +8,6 @@ import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.IntDef;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
@@ -85,7 +84,7 @@ public class DotItemDecoration extends RecyclerView.ItemDecoration {
     private int mDotPaddingText = 10;//the distance between dot and text
     private int mBottomDistance = 30;//the distance between dot and the bottom of last child
 
-    private boolean mDotInItemCenter =false;
+    private boolean mDotInItemCenter = false;
 
     private SpanIndexListener mSpanIndexListener;
 
@@ -131,23 +130,16 @@ public class DotItemDecoration extends RecyclerView.ItemDecoration {
             }
         }
 
-        if(mSpanIndexListener==null)
-            return;
-        int spanIndex=-1;
+        if (mSpanIndexListener == null) return;
+
         ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
         if (layoutParams instanceof StaggeredGridLayoutManager.LayoutParams) {
             StaggeredGridLayoutManager.LayoutParams staggerLayoutParams = (StaggeredGridLayoutManager.LayoutParams) layoutParams;
-            spanIndex = staggerLayoutParams.getSpanIndex();
-
-        }else if(layoutParams instanceof GridLayoutManager.LayoutParams){
-            GridLayoutManager.LayoutParams mLayoutParams= (GridLayoutManager.LayoutParams) layoutParams;
-            spanIndex = mLayoutParams.getSpanIndex();
+            int spanIndex = staggerLayoutParams.getSpanIndex();
+            if (mSpanIndexListener != null && spanIndex != -1) {
+                mSpanIndexListener.onSpanIndexChange(view, spanIndex);
+            }
         }
-
-        if (spanIndex != -1) {
-            mSpanIndexListener.onSpanIndexChange(view, spanIndex);
-        }
-
     }
 
     @Override
@@ -209,13 +201,11 @@ public class DotItemDecoration extends RecyclerView.ItemDecoration {
             } else {
                 drawableLeft = parentWidth / 2;
 
-                if(mDotInItemCenter){
-                    c.drawCircle(drawableLeft,(child.getTop()+child.getBottom())/2+mDotPaddingTop,mDotRadius,mDotPaint);
-                }else{
-
+                if (mDotInItemCenter) {
+                    c.drawCircle(drawableLeft, (child.getTop() + child.getBottom()) / 2 + mDotPaddingTop, mDotRadius, mDotPaint);
+                } else {
                     c.drawCircle(drawableLeft, top, mDotRadius, mDotPaint);
                 }
-                //c.drawCircle(drawableLeft, top, mDotRadius, mDotPaint);
             }
 
             if (i == childCount - 1) {
@@ -231,7 +221,6 @@ public class DotItemDecoration extends RecyclerView.ItemDecoration {
                     mDrawable.setBounds(drawableLeft, top, drawableRight, bottom);
                     mDrawable.draw(c);
                 } else {
-
                     c.drawCircle(drawableLeft, top, mDotRadius, mDotPaint);
                 }
 
@@ -279,10 +268,9 @@ public class DotItemDecoration extends RecyclerView.ItemDecoration {
             } else {
                 drawableLeft = parentHeight / 2;
 
-                if(mDotInItemCenter){
-
-                    c.drawCircle((child.getLeft()+child.getRight())/2+mDotPaddingTop, drawableLeft, mDotRadius, mDotPaint);
-                }else{
+                if (mDotInItemCenter) {
+                    c.drawCircle((child.getLeft() + child.getRight()) / 2 + mDotPaddingTop, drawableLeft, mDotRadius, mDotPaint);
+                } else {
                     c.drawCircle(left, drawableLeft, mDotRadius, mDotPaint);
                 }
             }
@@ -359,8 +347,8 @@ public class DotItemDecoration extends RecyclerView.ItemDecoration {
             return this;
         }
 
-        public Builder setDotPaddingTop(int paddingTop){
-            itemDecoration.mDotPaddingTop= Util.Dp2Px(mContext,paddingTop);
+        public Builder setDotPaddingTop(int paddingTop) {
+            itemDecoration.mDotPaddingTop = Util.Dp2Px(mContext, paddingTop);
             return this;
         }
 
@@ -393,8 +381,9 @@ public class DotItemDecoration extends RecyclerView.ItemDecoration {
             itemDecoration.mDotPaddingText = Util.Dp2Px(mContext, dotPaddingText);
             return this;
         }
-        public Builder setDotInItemOrientationCenter(boolean tag){
-            itemDecoration.mDotInItemCenter =tag;
+
+        public Builder setDotInItemOrientationCenter(boolean tag) {
+            itemDecoration.mDotInItemCenter = tag;
             return this;
         }
 

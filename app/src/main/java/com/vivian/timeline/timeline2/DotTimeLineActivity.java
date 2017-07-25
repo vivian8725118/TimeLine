@@ -57,7 +57,7 @@ public class DotTimeLineActivity extends AppCompatActivity {
                 .setDotColor(Color.WHITE)
                 .setDotRadius(2)//dp
                 .setDotPaddingTop(0)
-                .setDotInItemOrientationCenter(false)
+                .setDotInItemOrientationCenter(false)//set true if you want the dot align center
                 .setLineColor(Color.RED)
                 .setLineWidth(1)//dp
                 .setEndText("END")

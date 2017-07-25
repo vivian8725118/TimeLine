@@ -32,6 +32,8 @@ Currently there are 2 styles available, as seen in the Screenshots. You can find
                 .setItemPaddingRight(10)//default value equals to item interval value
                 .setDotColor(Color.WHITE)
                 .setDotRadius(2)//dp
+                .setDotPaddingTop(0)
+                .setDotInItemOrientationCenter(false)//set true if you want the dot align center
                 .setLineColor(Color.RED)//the color of vertical line
                 .setLineWidth(1)//dp
                 .setEndText("END")//set end text

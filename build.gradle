@@ -27,8 +27,8 @@ ext{
 
     minSdkVersion = 9
     targetSdkVersion = 21
-    versionCode = 20170716
-    versionName = "1.1"
+    versionCode = 20170725
+    versionName = "1.2"
 
     pomPackaging = "aar"
     pomName = "TimeLine"
