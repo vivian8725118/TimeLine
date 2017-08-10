@@ -44,7 +44,7 @@ mRecyclerView.addItemDecoration(new ItemDecoration(this,100));
 ```
 
 
-如果需要根据item所在**列数**进行操作，可以实现SpanIndexListener](https://github.com/vivian8725118/TimeLine/blob/master/app/src/main/java/com/vivian/timeline/itemdecoration/SpanIndexListener.java)接口
+如果需要根据item所在**列数**进行操作，可以实现[SpanIndexListener](https://github.com/vivian8725118/TimeLine/blob/master/app/src/main/java/com/vivian/timeline/itemdecoration/SpanIndexListener.java)接口
 
 ```
    mItemDecoration.setSpanIndexListener(new SpanIndexListener() {

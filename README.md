@@ -1,6 +1,8 @@
 # TimeLine
 This project aims to provide a easy way to use *Staggered TimeLine* implementation.
 
+[中文版文档](https://github.com/vivian8725118/TimeLine/blob/master/README_CHINESE.md)
+
 ## Provide the gradle dependency
 ```
 compile 'com.vivian.widgets:TimeLineItemDecoration:1.1'
@@ -66,9 +68,9 @@ if you want to do something according to the column of span,implements `SpanInde
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
     You may obtain a copy of the License at
-
+    
        http://www.apache.org/licenses/LICENSE-2.0
-
+    
     Unless required by applicable law or agreed to in writing, software
     distributed under the License is distributed on an "AS IS" BASIS,
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
