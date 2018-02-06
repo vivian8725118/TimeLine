@@ -61,6 +61,9 @@ mRecyclerView.addItemDecoration(new ItemDecoration(this,100));
 <image src="https://github.com/vivian8725118/TimeLine/blob/master/art/A6A1B601503A23E054ABC9B205B2131F.png?raw=true" width=40% height=40%/>
 </div>
 
+# 联系方式
+如果有什么问题，我没有及时回复的话，可以加我微信vivian8725118，或者发邮件到1354458047@qq.com/ vivian8725118@gmail.com，我看到之后会回复的。
+
 # License
 
     Copyright 2017 Vivian
