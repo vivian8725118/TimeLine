@@ -61,6 +61,10 @@ if you want to do something according to the column of span,implements `SpanInde
 <image src="https://github.com/vivian8725118/TimeLine/blob/master/art/A6A1B601503A23E054ABC9B205B2131F.png?raw=true" width=40% height=40%/>
 </div>
 
+# Contact
+
+If you have any problem with this,you can add my wechat:`vivian8725118`,or email me:`1354458047@qq.com`/`vivian8725118@gmail.com`. I'll reply you when I saw it.
+
 # License
 
     Copyright 2017 Vivian
