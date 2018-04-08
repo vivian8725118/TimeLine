@@ -3,7 +3,7 @@
 
 ## 添加依赖
 ```
-compile 'com.vivian.widgets:TimeLineItemDecoration:1.1'
+compile 'com.vivian.widgets:TimeLineItemDecoration:1.3'
 ```
 
 ## 使用方法

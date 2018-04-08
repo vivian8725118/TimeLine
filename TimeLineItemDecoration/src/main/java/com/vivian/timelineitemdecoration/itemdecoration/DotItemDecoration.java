@@ -52,45 +52,19 @@ public class DotItemDecoration extends RecyclerView.ItemDecoration {
 
     }
 
-    @ItemStyle
-    private int mStyle = STYLE_DRAW;
-    @Orientation
-    private int mOrientation = VERTICAL;
     private Context mContext;
-
-    private int mTopDistance = 40;
-    private int mItemInterval = 20;
-    private int mItemPaddingLeft = mItemInterval;//default
-    private int mItemPaddingRight = mItemInterval;
-
-    Paint mLinePaint;
-    private int mLineWidth = 4;
-    private int mLineColor = Color.WHITE;
-
-    Drawable mDrawable;
-    private int mDotRes = R.drawable.dot;
-
-    Paint mDotPaint;
-    private int mDotPaddingTop = 20;
-    private int mDotRadius = 5;
-    private int mDotColor = Color.WHITE;
-
-    String mEnd = "END";
-    Paint mTextPaint;
-    Rect mTextRect;
-    private int mTextColor = Color.WHITE;
-    private int mTextSize = 18;
-
-    private int mDotPaddingText = 10;//the distance between dot and text
-    private int mBottomDistance = 30;//the distance between dot and the bottom of last child
-
-    private boolean mDotInItemCenter = false;
+    private Paint mLinePaint;
+    private Drawable mDrawable;
+    private Paint mDotPaint;
+    private Paint mTextPaint;
+    private Rect mTextRect;
 
     private SpanIndexListener mSpanIndexListener;
+    private Config mConfig;
 
-    public DotItemDecoration(Context context) {
+    public DotItemDecoration(Context context, Config config) {
         mContext = context;
-
+        mConfig = config;
         mTextPaint = new Paint();
         mTextRect = new Rect();
         mLinePaint = new Paint();
@@ -106,27 +80,27 @@ public class DotItemDecoration extends RecyclerView.ItemDecoration {
         int itemCount = parent.getAdapter().getItemCount();
         int currentPosition = parent.getChildAdapterPosition(view);
 
-        if (mOrientation == VERTICAL) {
-            outRect.left = mItemPaddingLeft;
-            outRect.right = mItemPaddingRight;
-            outRect.bottom = mItemInterval;
+        if (mConfig.mOrientation == VERTICAL) {
+            outRect.left = mConfig.mItemPaddingLeft;
+            outRect.right = mConfig.mItemPaddingRight;
+            outRect.bottom = mConfig.mItemInterval;
             if (parent.getChildAdapterPosition(view) == 0) {
-                outRect.top = mTopDistance;
+                outRect.top = mConfig.mTopDistance;
             } else if (parent.getChildAdapterPosition(view) == 1) {
-                outRect.top = 2 * mTopDistance;
+                outRect.top = 2 * mConfig.mTopDistance;
             } else if (parent.getAdapter() != null && (currentPosition == itemCount - 1 || currentPosition == itemCount - 2)) {
-                outRect.bottom = outRect.height() + mItemInterval + mBottomDistance + mDotPaddingText + mTextSize + mTextRect.height() + mDotRadius;
+                outRect.bottom = outRect.height() + mConfig.mItemInterval + mConfig.mBottomDistance + mConfig.mDotPaddingText + mConfig.mTextSize + mTextRect.height() + mConfig.mDotRadius;
             }
         } else {
-            outRect.top = mItemPaddingLeft;
-            outRect.bottom = mItemPaddingRight;
-            outRect.right = mItemInterval;
+            outRect.top = mConfig.mItemPaddingLeft;
+            outRect.bottom = mConfig.mItemPaddingRight;
+            outRect.right = mConfig.mItemInterval;
             if (parent.getChildAdapterPosition(view) == 0) {
-                outRect.left = mTopDistance;
+                outRect.left = mConfig.mTopDistance;
             } else if (parent.getChildAdapterPosition(view) == 1) {
-                outRect.left = 2 * mTopDistance;
+                outRect.left = 2 * mConfig.mTopDistance;
             } else if (parent.getAdapter() != null && (currentPosition == itemCount - 1 || currentPosition == itemCount - 2)) {
-                outRect.right = outRect.width() + mItemInterval + mBottomDistance + mDotPaddingText + mTextSize + mTextRect.width() + mDotRadius;
+                outRect.right = outRect.width() + mConfig.mItemInterval + mConfig.mBottomDistance + mConfig.mDotPaddingText + mConfig.mTextSize + mTextRect.width() + mConfig.mDotRadius;
             }
         }
 
@@ -144,19 +118,19 @@ public class DotItemDecoration extends RecyclerView.ItemDecoration {
 
     @Override
     public void onDraw(Canvas c, RecyclerView parent, RecyclerView.State state) {
-        if (mStyle == STYLE_RESOURCE) {
-            mDrawable = ContextCompat.getDrawable(mContext, mDotRes);
+        if (mConfig.mStyle == STYLE_RESOURCE) {
+            mDrawable = ContextCompat.getDrawable(mContext, mConfig.mDotRes);
         }
 
-        mTextPaint.setColor(mTextColor);
-        mTextPaint.setTextSize(mTextSize);
+        mTextPaint.setColor(mConfig.mTextColor);
+        mTextPaint.setTextSize(mConfig.mTextSize);
 
-        mLinePaint.setColor(mLineColor);
-        mLinePaint.setStrokeWidth(mLineWidth);
+        mLinePaint.setColor(mConfig.mLineColor);
+        mLinePaint.setStrokeWidth(mConfig.mLineWidth);
 
-        mDotPaint.setColor(mDotColor);
+        mDotPaint.setColor(mConfig.mDotColor);
 
-        if (mOrientation == VERTICAL) {
+        if (mConfig.mOrientation == VERTICAL) {
             drawCenterVerticalLine(c, parent);
             drawVerticalItem(c, parent);
         } else {
@@ -174,9 +148,9 @@ public class DotItemDecoration extends RecyclerView.ItemDecoration {
         View lastChild = parent.getChildAt(childCount - 1);
         if (childCount > 1) {
             View child = parent.getChildAt(childCount - 2);
-            bottom = mBottomDistance + (child.getBottom() > lastChild.getBottom() ? child.getBottom() : lastChild.getBottom());
+            bottom = mConfig.mBottomDistance + (child.getBottom() > lastChild.getBottom() ? child.getBottom() : lastChild.getBottom());
         } else {
-            bottom = mBottomDistance + lastChild.getBottom();
+            bottom = mConfig.mBottomDistance + lastChild.getBottom();
         }
 
         c.drawLine(parentWidth / 2, top, parentWidth / 2, bottom, mLinePaint);
@@ -188,10 +162,10 @@ public class DotItemDecoration extends RecyclerView.ItemDecoration {
         for (int i = 0; i < childCount; i++) {
             final View child = parent.getChildAt(i);
 
-            int top = child.getTop() + mDotPaddingTop;
+            int top = child.getTop() + mConfig.mDotPaddingTop;
             int bottom;
             int drawableLeft;
-            if (mStyle == STYLE_RESOURCE) {
+            if (mConfig.mStyle == STYLE_RESOURCE) {
                 bottom = top + mDrawable.getIntrinsicHeight();
                 drawableLeft = parentWidth / 2 - mDrawable.getIntrinsicWidth() / 2;
                 int drawableRight = parentWidth / 2 + mDrawable.getIntrinsicWidth() / 2;
@@ -201,32 +175,32 @@ public class DotItemDecoration extends RecyclerView.ItemDecoration {
             } else {
                 drawableLeft = parentWidth / 2;
 
-                if (mDotInItemCenter) {
-                    c.drawCircle(drawableLeft, (child.getTop() + child.getBottom()) / 2 + mDotPaddingTop, mDotRadius, mDotPaint);
+                if (mConfig.mDotInItemCenter) {
+                    c.drawCircle(drawableLeft, (child.getTop() + child.getBottom()) / 2 + mConfig.mDotPaddingTop, mConfig.mDotRadius, mDotPaint);
                 } else {
-                    c.drawCircle(drawableLeft, top, mDotRadius, mDotPaint);
+                    c.drawCircle(drawableLeft, top, mConfig.mDotRadius, mDotPaint);
                 }
             }
 
             if (i == childCount - 1) {
                 View lastChild = parent.getChildAt(i - 1);
                 if (lastChild.getBottom() < child.getBottom()) {
-                    top = child.getBottom() + mBottomDistance;
-                    bottom = child.getBottom() + (mStyle == STYLE_RESOURCE ? mDrawable.getIntrinsicHeight() : mDotRadius);
+                    top = child.getBottom() + mConfig.mBottomDistance;
+                    bottom = child.getBottom() + (mConfig.mStyle == STYLE_RESOURCE ? mDrawable.getIntrinsicHeight() : mConfig.mDotRadius);
                 } else {
-                    top = lastChild.getBottom() + mBottomDistance;
-                    bottom = lastChild.getBottom() + (mStyle == STYLE_RESOURCE ? mDrawable.getIntrinsicHeight() : mDotRadius);
+                    top = lastChild.getBottom() + mConfig.mBottomDistance;
+                    bottom = lastChild.getBottom() + (mConfig.mStyle == STYLE_RESOURCE ? mDrawable.getIntrinsicHeight() : mConfig.mDotRadius);
                 }
-                if (mStyle == STYLE_RESOURCE) {
+                if (mConfig.mStyle == STYLE_RESOURCE) {
                     mDrawable.setBounds(drawableLeft, top, drawableRight, bottom);
                     mDrawable.draw(c);
                 } else {
-                    c.drawCircle(drawableLeft, top, mDotRadius, mDotPaint);
+                    c.drawCircle(drawableLeft, top, mConfig.mDotRadius, mDotPaint);
                 }
 
-                mTextPaint.getTextBounds(mEnd, 0, mEnd.length(), mTextRect);
-                mTextPaint.setTextSize(mTextSize);
-                c.drawText(mEnd, parentWidth / 2 - mTextRect.width() / 2, bottom + mBottomDistance + mDotPaddingText + mTextSize, mTextPaint);
+                mTextPaint.getTextBounds(mConfig.mEnd, 0, mConfig.mEnd.length(), mTextRect);
+                mTextPaint.setTextSize(mConfig.mTextSize);
+                c.drawText(mConfig.mEnd, parentWidth / 2 - mTextRect.width() / 2, bottom + mConfig.mBottomDistance + mConfig.mDotPaddingText + mConfig.mTextSize, mTextPaint);
             }
         }
     }
@@ -240,9 +214,9 @@ public class DotItemDecoration extends RecyclerView.ItemDecoration {
         View lastChild = parent.getChildAt(childCount - 1);
         if (childCount > 1) {
             View child = parent.getChildAt(childCount - 2);
-            right = mBottomDistance + (child.getRight() > lastChild.getRight() ? child.getRight() : lastChild.getRight());
+            right = mConfig.mBottomDistance + (child.getRight() > lastChild.getRight() ? child.getRight() : lastChild.getRight());
         } else {
-            right = mBottomDistance + lastChild.getRight();
+            right = mConfig.mBottomDistance + lastChild.getRight();
         }
 
         c.drawLine(left, parentHeight / 2, right, parentHeight / 2, mLinePaint);
@@ -254,11 +228,11 @@ public class DotItemDecoration extends RecyclerView.ItemDecoration {
 
         for (int i = 0; i < childCount; i++) {
             final View child = parent.getChildAt(i);
-            int left = child.getLeft() + mDotPaddingTop;
+            int left = child.getLeft() + mConfig.mDotPaddingTop;
             int right;
             int drawableLeft;
 
-            if (mStyle == STYLE_RESOURCE) {
+            if (mConfig.mStyle == STYLE_RESOURCE) {
                 right = left + mDrawable.getIntrinsicWidth();
                 drawableLeft = parentHeight / 2 - mDrawable.getIntrinsicWidth() / 2;
                 int drawableRight = parentHeight / 2 + mDrawable.getIntrinsicWidth() / 2;
@@ -268,137 +242,160 @@ public class DotItemDecoration extends RecyclerView.ItemDecoration {
             } else {
                 drawableLeft = parentHeight / 2;
 
-                if (mDotInItemCenter) {
-                    c.drawCircle((child.getLeft() + child.getRight()) / 2 + mDotPaddingTop, drawableLeft, mDotRadius, mDotPaint);
+                if (mConfig.mDotInItemCenter) {
+                    c.drawCircle((child.getLeft() + child.getRight()) / 2 + mConfig.mDotPaddingTop, drawableLeft, mConfig.mDotRadius, mDotPaint);
                 } else {
-                    c.drawCircle(left, drawableLeft, mDotRadius, mDotPaint);
+                    c.drawCircle(left, drawableLeft, mConfig.mDotRadius, mDotPaint);
                 }
             }
 
             if (i == childCount - 1) {
                 View lastChild = parent.getChildAt(i - 1);
                 if (lastChild.getRight() < child.getRight()) {
-                    left = child.getRight() + mBottomDistance;
-                    right = child.getRight() + (mStyle == STYLE_RESOURCE ? mDrawable.getIntrinsicWidth() : mDotRadius);
+                    left = child.getRight() + mConfig.mBottomDistance;
+                    right = child.getRight() + (mConfig.mStyle == STYLE_RESOURCE ? mDrawable.getIntrinsicWidth() : mConfig.mDotRadius);
                 } else {
-                    left = lastChild.getRight() + mBottomDistance;
-                    right = lastChild.getRight() + (mStyle == STYLE_RESOURCE ? mDrawable.getIntrinsicWidth() : mDotRadius);
+                    left = lastChild.getRight() + mConfig.mBottomDistance;
+                    right = lastChild.getRight() + (mConfig.mStyle == STYLE_RESOURCE ? mDrawable.getIntrinsicWidth() : mConfig.mDotRadius);
                 }
-                if (mStyle == STYLE_RESOURCE) {
+                if (mConfig.mStyle == STYLE_RESOURCE) {
                     mDrawable.setBounds(left, drawableLeft, drawableRight, right);
                     mDrawable.draw(c);
                 } else {
-                    c.drawCircle(left, drawableLeft, mDotRadius, mDotPaint);
+                    c.drawCircle(left, drawableLeft, mConfig.mDotRadius, mDotPaint);
                 }
 
-                mTextPaint.getTextBounds(mEnd, 0, mEnd.length(), mTextRect);
-                mTextPaint.setTextSize(mTextSize);
-                c.drawText(mEnd, right + mBottomDistance + mDotPaddingText + mTextSize, parentHeight / 2 + mTextRect.height() / 2, mTextPaint);
+                mTextPaint.getTextBounds(mConfig.mEnd, 0, mConfig.mEnd.length(), mTextRect);
+                mTextPaint.setTextSize(mConfig.mTextSize);
+                c.drawText(mConfig.mEnd, right + mConfig.mBottomDistance + mConfig.mDotPaddingText + mConfig.mTextSize, parentHeight / 2 + mTextRect.height() / 2, mTextPaint);
             }
         }
     }
 
+    static class Config {
+        @ItemStyle
+        public int mStyle = STYLE_DRAW;
+        @Orientation
+        public int mOrientation = VERTICAL;
+        public int mTopDistance = 40;
+        public int mItemInterval = 20;
+        public int mItemPaddingLeft = mItemInterval;//default
+        public int mItemPaddingRight = mItemInterval;
+        public int mLineWidth = 4;
+        public int mLineColor = Color.WHITE;
+        public int mDotRes = R.drawable.dot;
+        public int mDotPaddingTop = 20;
+        public int mDotRadius = 5;
+        public int mDotColor = Color.WHITE;
+        public String mEnd = "END";
+        public int mTextColor = Color.WHITE;
+        public int mTextSize = 18;
+        public int mDotPaddingText = 10;
+        public int mBottomDistance = 30;
+        public boolean mDotInItemCenter = false;
+    }
+
     public static class Builder {
         private Context mContext;
-        private DotItemDecoration itemDecoration;
+        private Config mConfig;
 
         public Builder(Context context) {
             this.mContext = context;
-            itemDecoration = new DotItemDecoration(context);
+            mConfig = new Config();
         }
 
         public Builder setOrientation(@Orientation int orientation) {
-            itemDecoration.mOrientation = orientation;
+            mConfig.mOrientation = orientation;
             return this;
         }
 
         public Builder setItemStyle(@ItemStyle int itemStyle) {
-            itemDecoration.mStyle = itemStyle;
+            mConfig.mStyle = itemStyle;
             return this;
         }
 
         public Builder setTopDistance(float distance) {
-            itemDecoration.mTopDistance = Util.Dp2Px(mContext, distance);
+            mConfig.mTopDistance = Util.Dp2Px(mContext, distance);
             return this;
         }
 
         public Builder setItemPaddingLeft(float itemPaddingLeft) {
-            itemDecoration.mItemPaddingLeft = Util.Dp2Px(mContext, itemPaddingLeft);
+            mConfig.mItemPaddingLeft = Util.Dp2Px(mContext, itemPaddingLeft);
             return this;
         }
 
         public Builder setItemPaddingRight(float itemPaddingRight) {
-            itemDecoration.mItemPaddingRight = Util.Dp2Px(mContext, itemPaddingRight);
+            mConfig.mItemPaddingRight = Util.Dp2Px(mContext, itemPaddingRight);
             return this;
         }
 
         public Builder setItemInterVal(float interval) {
-            itemDecoration.mItemInterval = Util.Dp2Px(mContext, interval);
+            mConfig.mItemInterval = Util.Dp2Px(mContext, interval);
             return this;
         }
 
         public Builder setLineWidth(float lineWidth) {
-            itemDecoration.mLineWidth = Util.Dp2Px(mContext, lineWidth);
+            mConfig.mLineWidth = Util.Dp2Px(mContext, lineWidth);
             return this;
         }
 
         public Builder setLineColor(int lineColor) {
-            itemDecoration.mLineColor = lineColor;
+            mConfig.mLineColor = lineColor;
             return this;
         }
 
         public Builder setDotPaddingTop(int paddingTop) {
-            itemDecoration.mDotPaddingTop = Util.Dp2Px(mContext, paddingTop);
+            mConfig.mDotPaddingTop = Util.Dp2Px(mContext, paddingTop);
             return this;
         }
 
         public Builder setDotRes(int dotRes) {
-            itemDecoration.mDotRes = dotRes;
+            mConfig.mDotRes = dotRes;
             return this;
         }
 
         public Builder setDotRadius(int dotRadius) {
-            itemDecoration.mDotRadius = Util.Dp2Px(mContext, dotRadius);
+            mConfig.mDotRadius = Util.Dp2Px(mContext, dotRadius);
             return this;
         }
 
         public Builder setDotColor(int dotColor) {
-            itemDecoration.mDotColor = dotColor;
+            mConfig.mDotColor = dotColor;
             return this;
         }
 
         public Builder setTextColor(int textColor) {
-            itemDecoration.mTextColor = textColor;
+            mConfig.mTextColor = textColor;
             return this;
         }
 
         public Builder setTextSize(float textSize) {
-            itemDecoration.mTextSize = Util.Sp2Px(mContext, textSize);
+            mConfig.mTextSize = Util.Sp2Px(mContext, textSize);
             return this;
         }
 
         public Builder setDotPaddingText(float dotPaddingText) {
-            itemDecoration.mDotPaddingText = Util.Dp2Px(mContext, dotPaddingText);
+            mConfig.mDotPaddingText = Util.Dp2Px(mContext, dotPaddingText);
             return this;
         }
 
         public Builder setDotInItemOrientationCenter(boolean tag) {
-            itemDecoration.mDotInItemCenter = tag;
+            mConfig.mDotInItemCenter = tag;
             return this;
         }
 
         public Builder setBottomDistance(float bottomDistance) {
-            itemDecoration.mBottomDistance = Util.Dp2Px(mContext, bottomDistance);
+            mConfig.mBottomDistance = Util.Dp2Px(mContext, bottomDistance);
             return this;
         }
 
         public Builder setEndText(String end) {
-            itemDecoration.mEnd = end;
+            mConfig.mEnd = end;
             return this;
         }
 
         public DotItemDecoration create() {
-            return itemDecoration;
+            return new DotItemDecoration(mContext, mConfig);
         }
     }
 }

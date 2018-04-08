@@ -17,9 +17,8 @@ import java.util.Date;
 
 public class Util {
     /**
-     * long转成2015.01.03格式
-     *
-     * @param time 单位ms s的话需要*1000
+     * format date
+     * @param time :ms
      * @return
      */
     public static String LongtoStringFormat(long time) {
