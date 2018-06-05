@@ -4,7 +4,7 @@ This project aims to provide a easy way to use *Staggered TimeLine* implementati
 [中文版文档](https://github.com/vivian8725118/TimeLine/blob/master/README_CHINESE.md)
 
 ## Provide the gradle dependency
-```
+``` groovy
 compile 'com.vivian.widgets:TimeLineItemDecoration:1.3'
 ```
 
@@ -12,19 +12,19 @@ compile 'com.vivian.widgets:TimeLineItemDecoration:1.3'
 If you want to use this *TimeLine*  in your project, you have to do the following.
 
 - Set the `StaggeredGridLayoutManager` to your `RecyclerView`
-```
+``` java
 mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
 ```
 
 - Use the `ItemDecoration` of this project [ItemDecoration.java](https://github.com/vivian8725118/TimeLine/blob/master/app/src/main/java/com/vivian/timeline/timeline1/ItemDecoration.java)
-```
-mRecyclerView.addItemDecoration(new ItemDecoration(this,100));
+``` java
+mRecyclerView.addItemDecoration(new ItemDecoration(this, 100));
 ```
 The second ctor-parameter will define the `distance`. In that case 100px.
 
 Currently there are 2 styles available, as seen in the Screenshots. You can find the implementation for the second style here. [DotItemDecoration.java](https://github.com/vivian8725118/TimeLine/blob/master/app/src/main/java/com/vivian/timeline/itemdecoration/DotItemDecoration.java)  
-```
-  DotItemDecoration mItemDecoration = new DotItemDecoration
+``` java
+DotItemDecoration mItemDecoration = new DotItemDecoration
                 .Builder(this)
                 .setOrientation(DotItemDecoration.VERTICAL)//if you want a horizontal item decoration,remember to set horizontal orientation to your LayoutManager
                 .setItemStyle(DotItemDecoration.STYLE_DRAW)//choose to draw or use resource
@@ -46,13 +46,13 @@ Currently there are 2 styles available, as seen in the Screenshots. You can find
                 .create();
 ```
 if you want to do something according to the column of span,implements `SpanIndexListener` of this project [SpanIndexListener](https://github.com/vivian8725118/TimeLine/blob/master/app/src/main/java/com/vivian/timeline/itemdecoration/SpanIndexListener.java).
-```
-   mItemDecoration.setSpanIndexListener(new SpanIndexListener() {
-            @Override
-            public void onSpanIndexChange(View view, int spanIndex) {
-                view.setBackgroundResource(spanIndex == 0 ? R.drawable.pop_left : R.drawable.pop_right);
-            }
-   });
+``` java
+mItemDecoration.setSpanIndexListener(new SpanIndexListener() {
+        @Override
+        public void onSpanIndexChange(View view, int spanIndex) {
+           view.setBackgroundResource(spanIndex == 0 ? R.drawable.pop_left : R.drawable.pop_right);
+        }
+});
 ```
 
 ## Example
