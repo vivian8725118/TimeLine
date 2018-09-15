@@ -5,7 +5,7 @@ This project aims to provide a easy way to use *Staggered TimeLine* implementati
 
 ## Provide the gradle dependency
 ```
-compile 'com.vivian.widgets:TimeLineItemDecoration:1.3'
+compile 'com.vivian.widgets:TimeLineItemDecoration:1.4'
 ```
 
 ## Usage
