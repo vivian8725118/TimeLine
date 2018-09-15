@@ -145,6 +145,7 @@ public class DotItemDecoration extends RecyclerView.ItemDecoration {
         int bottom;
 
         final int childCount = parent.getChildCount();
+        if (childCount == 0) return;
         View lastChild = parent.getChildAt(childCount - 1);
         if (childCount > 1) {
             View child = parent.getChildAt(childCount - 2);
@@ -211,6 +212,7 @@ public class DotItemDecoration extends RecyclerView.ItemDecoration {
         int right;
 
         final int childCount = parent.getChildCount();
+        if (childCount == 0) return;
         View lastChild = parent.getChildAt(childCount - 1);
         if (childCount > 1) {
             View child = parent.getChildAt(childCount - 2);
