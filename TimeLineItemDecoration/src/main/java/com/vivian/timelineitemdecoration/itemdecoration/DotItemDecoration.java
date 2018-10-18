@@ -69,6 +69,7 @@ public class DotItemDecoration extends RecyclerView.ItemDecoration {
         mTextRect = new Rect();
         mLinePaint = new Paint();
         mDotPaint = new Paint();
+        mDotPaint.setAntiAlias(true);
     }
 
     public void setSpanIndexListener(SpanIndexListener spanIndexListener) {
@@ -185,6 +186,7 @@ public class DotItemDecoration extends RecyclerView.ItemDecoration {
 
             if (i == childCount - 1) {
                 View lastChild = parent.getChildAt(i - 1);
+                if (null == lastChild) lastChild = child;
                 if (lastChild.getBottom() < child.getBottom()) {
                     top = child.getBottom() + mConfig.mBottomDistance;
                     bottom = child.getBottom() + (mConfig.mStyle == STYLE_RESOURCE ? mDrawable.getIntrinsicHeight() : mConfig.mDotRadius);
@@ -253,6 +255,7 @@ public class DotItemDecoration extends RecyclerView.ItemDecoration {
 
             if (i == childCount - 1) {
                 View lastChild = parent.getChildAt(i - 1);
+                if (null == lastChild) lastChild = child;
                 if (lastChild.getRight() < child.getRight()) {
                     left = child.getRight() + mConfig.mBottomDistance;
                     right = child.getRight() + (mConfig.mStyle == STYLE_RESOURCE ? mDrawable.getIntrinsicWidth() : mConfig.mDotRadius);

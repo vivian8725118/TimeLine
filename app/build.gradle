@@ -23,14 +23,14 @@ android {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
+    api fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:25.3.1'
+    api 'com.android.support:appcompat-v7:25.3.1'
 //    compile 'com.android.support.constraint:constraint-layout:1.0.0-beta4'
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:recyclerview-v7:24.2.0'
-//    compile project(':TimeLineItemDecoration')
-    compile 'com.vivian.widgets:TimeLineItemDecoration:1.4'
+    api 'com.android.support:recyclerview-v7:24.2.0'
+    /*  api 'com.vivian.widgets:TimeLineItemDecoration:1.4'*/
+    api project(':TimeLineItemDecoration')
 }
