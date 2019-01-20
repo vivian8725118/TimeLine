@@ -2,8 +2,8 @@
 瀑布流时间轴，项目中主要用到了StaggerGridLayoutManager。
 
 ## 添加依赖
-```
-compile 'com.vivian.widgets:TimeLineItemDecoration:1.4'
+``` groovy
+implementation 'com.vivian.widgets:TimeLineItemDecoration:1.5'
 ```
 
 ## 使用方法
