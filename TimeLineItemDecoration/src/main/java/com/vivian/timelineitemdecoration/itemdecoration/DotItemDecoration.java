@@ -78,7 +78,7 @@ public class DotItemDecoration extends RecyclerView.ItemDecoration {
     }
 
     @Override
-    public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+    public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, RecyclerView parent, @NonNull RecyclerView.State state) {
         int itemCount = parent.getAdapter().getItemCount();
         int currentPosition = parent.getChildAdapterPosition(view);
 
@@ -119,7 +119,7 @@ public class DotItemDecoration extends RecyclerView.ItemDecoration {
     }
 
     @Override
-    public void onDraw(Canvas c, RecyclerView parent, RecyclerView.State state) {
+    public void onDraw(@NonNull Canvas c, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
         if (mConfig.mStyle == STYLE_RESOURCE) {
             mDrawable = ContextCompat.getDrawable(mContext, mConfig.mDotRes);
         }

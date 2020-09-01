@@ -40,7 +40,7 @@ public class ItemDecoration extends RecyclerView.ItemDecoration {
     }
 
     @Override
-    public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+    public void getItemOffsets(Rect outRect, @NonNull View view, RecyclerView parent, @NonNull RecyclerView.State state) {
         outRect.left = distance;
         outRect.right = distance;
         outRect.bottom = 3 * distance;
@@ -58,7 +58,7 @@ public class ItemDecoration extends RecyclerView.ItemDecoration {
     }
 
     @Override
-    public void onDraw(Canvas c, RecyclerView parent, RecyclerView.State state) {
+    public void onDraw(@NonNull Canvas c, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
         drawHorizontal(c, parent);
         drawVertical(c, parent);
     }
