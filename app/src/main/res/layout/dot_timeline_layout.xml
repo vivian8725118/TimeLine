@@ -17,7 +17,7 @@
         android:textSize="18sp"
         android:textColor="@android:color/white"/>
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_marginBottom="10dp"
         android:layout_marginTop="10dp"
