@@ -151,7 +151,7 @@ public class DotItemDecoration extends RecyclerView.ItemDecoration {
         View lastChild = parent.getChildAt(childCount - 1);
         if (childCount > 1) {
             View child = parent.getChildAt(childCount - 2);
-            bottom = mConfig.mBottomDistance + (child.getBottom() > lastChild.getBottom() ? child.getBottom() : lastChild.getBottom());
+            bottom = mConfig.mBottomDistance + (Math.max(child.getBottom(), lastChild.getBottom()));
         } else {
             bottom = mConfig.mBottomDistance + lastChild.getBottom();
         }
@@ -219,7 +219,7 @@ public class DotItemDecoration extends RecyclerView.ItemDecoration {
         View lastChild = parent.getChildAt(childCount - 1);
         if (childCount > 1) {
             View child = parent.getChildAt(childCount - 2);
-            right = mConfig.mBottomDistance + (child.getRight() > lastChild.getRight() ? child.getRight() : lastChild.getRight());
+            right = mConfig.mBottomDistance + (Math.max(child.getRight(), lastChild.getRight()));
         } else {
             right = mConfig.mBottomDistance + lastChild.getRight();
         }

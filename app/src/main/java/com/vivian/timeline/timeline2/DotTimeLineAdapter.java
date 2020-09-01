@@ -61,7 +61,7 @@ public class DotTimeLineAdapter extends RecyclerView.Adapter<DotTimeLineAdapter.
         return mList.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    static class ViewHolder extends RecyclerView.ViewHolder {
         TextView time;
         TextView textView;
 
